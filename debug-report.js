@@ -21,13 +21,12 @@ Hooks.once('ready', () => {
         ev.preventDefault();
         GenerateReport();
     });
-
-
+    
     if (!game.user.getFlag("debug-report", "welcomeMessageShown")) {
         
         let options = {
             whisper: [game.user.id],
-            content: '<p>Debug Report Generator has been installed.</p> <p>Type `/debug` in the chat window to create a report.</p>     <p><button class="debug-report" data-key="debug-report">Generate Report</button></p>'
+            content: '<p>Debug Report Generator has been installed.</p> <p>Type `/debug` in the chat window or click the button below to create a report.</p>     <p><button class="debug-report" data-key="debug-report">Generate Report</button></p>'
         };
         ChatMessage.create(options);
         game.user.setFlag("debug-report", "welcomeMessageShown", true);
