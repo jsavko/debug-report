@@ -7,9 +7,8 @@
 
 
 Hooks.on('chatMessage', (chatLog, message) => {
-    if (message = "/debug") {
+    if (message == "/debug") {
         //do debug
-        console.log("debug macro")
         GenerateReport();
         return false;
     }
@@ -17,7 +16,6 @@ Hooks.on('chatMessage', (chatLog, message) => {
 });
 
 function GenerateReport() { 
-
     let report = {};
     let output = '<textarea id="foundryDebugResults" rows="10" readonly>';
     function formatBytes(a,b=2){if(0===a)return"0 Bytes";const c=0>b?0:b,d=Math.floor(Math.log(a)/Math.log(1024));return parseFloat((a/Math.pow(1024,d)).toFixed(c))+" "+["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][d]}
@@ -140,6 +138,22 @@ function GenerateReport() {
     
     let d = new Dialog({
       title: `Debug Output`,
-      content: `${output}`, buttons: { copy: { label: `Copy to clipboard`, callback: () => { $("#foundryDebugResults").val("```" + $("#foundryDebugResults").val() + "```"); $("#foundryDebugResults").select(); document.execCommand('copy'); } }, close: { icon: "", label: `Close` }, }, default: "close", close: () => {} }); d.options.height = 600; d.options.width = 600; d.position.width = 600; d.render(true);
+      content: `${output}`, 
+      buttons: { 
+          copy: { 
+              label: `Copy to clipboard`,
+              callback: () => { $("#foundryDebugResults").val("```" + $("#foundryDebugResults").val() + "```"); $("#foundryDebugResults").select(); document.execCommand('copy'); } 
+            },
+          close: { 
+              icon: "",
+              label: `Close`
+            } 
+        },
+        options: {"width":600},
+        position: {"width":600}, 
+        default: "close",
+        close: () => {} 
+    });
+    d.options.height = 600; d.options.width = 600; d.position.width = 600; d.render(true);
 
 }
