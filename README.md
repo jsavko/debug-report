@@ -1,5 +1,5 @@
 # Debug Report 
-Install module and use /debug to generate a report useful for debugging foundry issues. 
+Install module and use `/debug` to generate a report useful for debugging foundry issues. 
 
 # Install
 Install as module via url: https://raw.githubusercontent.com/jsavko/debug-report/main/module.json
