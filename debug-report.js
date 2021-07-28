@@ -9,7 +9,10 @@ Hooks.once('init', () => {
 Hooks.on('chatMessage', (chatLog, message) => {
     if (message == "/debug") {
         //do debug
-        GenerateReport();
+        setTimeout(() => {
+            GenerateReport();  //Hacky fix to the window auto closing =[
+        }, 200);
+
         return false;
     }
 });
