@@ -1,9 +1,9 @@
 /**
  * Registers the report on chatmessage
  */
- Hooks.once('init', () => {
-    console.log("Debug Report Loaded: Use /debug in chat window to produce report");
- });
+Hooks.once('init', () => {
+    console.log("Debug Report Loaded: Use /debug in chat window to create a report");
+});
 
 
 Hooks.on('chatMessage', (chatLog, message) => {
@@ -12,8 +12,30 @@ Hooks.on('chatMessage', (chatLog, message) => {
         GenerateReport();
         return false;
     }
+});
+
+
+Hooks.once('ready', () => {
+    //Send a message to the chat log about using /debug to generate a report.
+    $(document).on("click", ".debug-report", (ev) => {
+        ev.preventDefault();
+        GenerateReport();
+    });
+
+
+    if (!game.user.getFlag("debug-report", "welcomeMessageShown")) {
+        
+        let options = {
+            whisper: [game.user.id],
+            content: '<p>Debug Report Generator has been installed.</p> <p>Type `/debug` in the chat window to create a report.</p>     <p><button class="debug-report" data-key="debug-report">Generate Report</button></p>'
+        };
+        ChatMessage.create(options);
+        game.user.setFlag("debug-report", "welcomeMessageShown", true);
+    }
 
 });
+
+
 
 function GenerateReport() { 
     let report = {};
