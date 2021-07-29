@@ -37,6 +37,21 @@ Hooks.once('ready', () => {
 
 });
 
+Hooks.once("renderSettings", (app, html) => {
+  const newHead = document.querySelector("#settings").appendChild(document.createElement("h2"))
+  const newHeadText = document.createTextNode("Debug");
+  newHead.appendChild(newHeadText);
+  
+  const debugDiv = document.querySelector("#settings").appendChild(document.createElement("div"))
+  debugDiv.setAttribute('id', 'settings-debug')
+  
+  const debugButton = document.querySelector("#settings-debug").appendChild(document.createElement("button"))
+  debugButton.setAttribute('class', 'debug-report')
+  debugButton.setAttribute('data-key', 'debug-report')
+  const debugButtonText = document.createTextNode("Generate Report");
+  debugButton.appendChild(debugButtonText);
+  
+});
 
 
 function GenerateReport() { 
