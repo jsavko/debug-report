@@ -1,7 +1,10 @@
 /**
  * Registers the report on chatmessage
  */
+const timings = { init: 0, setup: 0, ready: 0, canvas_init: 0, canvas_ready: 0 }
+
 Hooks.once('init', () => {
+    timings.init = performance.now();
     console.log("Debug Report Loaded: Use /debug in chat window to create a report");
 });
 
@@ -36,6 +39,19 @@ Hooks.once('ready', () => {
     }
 
 });
+
+Hooks.once('setup', () => {
+  timings.setup = performance.now();
+});
+
+Hooks.once('canvasInit', () => {
+  timings.canvas_init = performance.now();
+});
+
+Hooks.once('canvasReady', () => {
+  timings.canvas_ready = performance.now();
+});
+
 
 Hooks.once("renderSettings", (app, html) => {
   const newHead = document.querySelector("#settings").appendChild(document.createElement("h2"))
@@ -165,7 +181,14 @@ function GenerateReport() {
         report.Active_Modules[m.data.name] = `${m.data.title} v${m.data.version}`;
       } 
     });
-    
+
+    report.Timings_From_Module_Init = {
+      Setup: (timings.setup - timings.init) / 1000,
+      Ready: (timings.ready - timings.init) / 1000,
+      Canvas_Init: (timings.canvas_init - timings.init) / 1000,
+      Canvas_Ready: (timings.canvas_ready - timings.init) / 1000
+    }
+
     for (const [k1, v1] of Object.entries(report)) {
       output += `${k1}:\n`;
       for (const [k2, v2] of Object.entries(v1)) {
