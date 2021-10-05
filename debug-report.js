@@ -54,6 +54,36 @@ Hooks.once("renderSettings", (app, html) => {
 });
 
 
+function occurrences(string, subString, allowOverlapping) {
+
+  string += "";
+  subString += "";
+  if (subString.length <= 0) return (string.length + 1);
+
+  var n = 0,
+      pos = 0,
+      step = allowOverlapping ? 1 : subString.length;
+
+  while (true) {
+      pos = string.indexOf(subString, pos);
+      if (pos >= 0) {
+          ++n;
+          pos += step;
+      } else break;
+  }
+  return n;
+}
+
+function checkBase64(string) { 
+
+var count = occurrences(JSON.stringify(string) , "base64");
+
+  if (count  > 0) {
+    return " (" + count + " Base64 Detected)";
+  }
+  return '';
+}
+
 function GenerateReport() { 
     let report = {};
     let output = '<textarea id="foundryDebugResults" rows="10" readonly>';
@@ -126,15 +156,15 @@ function GenerateReport() {
     
     //Data Sizes
     report.Data_Sizes = {
-     Actors: formatBytes(JSON.stringify(game.actors).length),
-     Items: formatBytes(JSON.stringify(game.items).length),
-     Scenes: formatBytes(JSON.stringify(game.scenes).length),
-     Journals: formatBytes(JSON.stringify(game.journal).length),
-     Tables: formatBytes(JSON.stringify(game.tables).length),
-     Chat: formatBytes(JSON.stringify(game.messages).length),
-     Macros: formatBytes(JSON.stringify(game.macros).length),
+     Actors: formatBytes(JSON.stringify(game.actors).length) + checkBase64(game.actors),
+     Items: formatBytes(JSON.stringify(game.items).length) + checkBase64(game.items) ,
+     Scenes: formatBytes(JSON.stringify(game.scenes).length) +  checkBase64(game.scenes),
+     Journals: formatBytes(JSON.stringify(game.journal).length) + checkBase64(game.journal),
+     Tables: formatBytes(JSON.stringify(game.tables).length) + checkBase64(game.tables),
+     Chat: formatBytes(JSON.stringify(game.messages).length) +  checkBase64(game.messages),
+     Macros: formatBytes(JSON.stringify(game.macros).length) + checkBase64(game.macros),
     };
-    
+
     // Browser Details
     report.Browser = {
       Platform: navigator.platform,
@@ -174,7 +204,7 @@ function GenerateReport() {
     }
     
     output += "</textarea>"
-    
+
     let d = new Dialog({
       title: `Debug Output`,
       content: `${output}`, 
