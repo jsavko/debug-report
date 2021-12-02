@@ -3,13 +3,13 @@
   "title": "Debug Report Generator",
   "description": "Creates a report useful for debugging foundry problems",
   "author": ["jsavko", "Geekswordsman"],
-  "version": "0.0.3",
-  "minimumCoreVersion": "0.8.0",
-  "compatibleCoreVersion": "0.8.8",
+  "version": "0.0.5",
+  "minimumCoreVersion": "9",
+  "compatibleCoreVersion": "9",
   "packs": [],
 	"esmodules": [
 		"./debug-report.js"
 	],
   "manifest": "https://raw.githubusercontent.com/jsavko/debug-report/main/module.json",
-  "download": "https://github.com/jsavko/debug-report/archive/refs/tags/0.0.3.zip"
+  "download": "https://github.com/jsavko/debug-report/archive/refs/tags/0.0.5.zip"
 }
