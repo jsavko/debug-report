@@ -12,8 +12,8 @@ Hooks.on('chatMessage', (chatLog, message) => {
         setTimeout(() => {
             GenerateReport();  //Hacky fix to the window auto closing =[
         }, 200);
-
         return false;
+        
     }
 });
 
@@ -38,11 +38,11 @@ Hooks.once('ready', () => {
 });
 
 Hooks.once("renderSettings", (app, html) => {
-  const newHead = document.querySelector("#settings").appendChild(document.createElement("h2"))
+  const newHead = document.querySelector("#settings-documentation").appendChild(document.createElement("h2"))
   const newHeadText = document.createTextNode("Debug");
   newHead.appendChild(newHeadText);
   
-  const debugDiv = document.querySelector("#settings").appendChild(document.createElement("div"))
+  const debugDiv = document.querySelector("#settings-documentation").appendChild(document.createElement("div"))
   debugDiv.setAttribute('id', 'settings-debug')
   
   const debugButton = document.querySelector("#settings-debug").appendChild(document.createElement("button"))
@@ -91,7 +91,7 @@ function GenerateReport() {
     
     // Foundry Details
     report.Versions = {
-      Foundry: game.data.version,
+      Foundry: game.version,
       System: `${game.system.id} version ${game.system.data.version}`,
     };
     
@@ -103,7 +103,7 @@ function GenerateReport() {
       Disable_Canvas: game.settings.get("core", "noCanvas") ? 'Enabled' : 'Disabled',
       Max_FPS: game.settings.get("core", "maxFPS"),
       Token_Drag_Vision: game.settings.get("core", "tokenDragPreview") ? 'Enabled' : 'Disabled',
-      Soft_Shadows: game.settings.get("core", "softShadows") ? 'Enabled' : 'Disabled',
+      Performance_Mode: game.settings.get("core", "performanceMode"),
       Token_Vision_Animation: game.settings.get("core", "visionAnimation") ? 'Enabled' : 'Disabled',
       Light_Source_Animation: game.settings.get("core", "lightAnimation") ? 'Enabled' : 'Disabled',
       Zoomed_Texture_Antialiasing: game.settings.get("core", "mipmap") ? 'Enabled' : 'Disabled',
@@ -127,7 +127,13 @@ function GenerateReport() {
      // WebGL Details
      let gl = canvas.app?.renderer.gl;
      if (gl) {
-      let debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+       //Firefox uses different render agent now.
+       let debugInfo;
+       if (String(navigator.userAgent).includes("Firefox")) {
+        debugInfo = gl.getExtension('RENDERER');
+       } else {
+        debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+       }
       report.WebGL = {
         Context: gl.constructor.name,
         GL_Vendor: gl.getParameter(gl.VENDOR),
