@@ -74,15 +74,18 @@ function occurrences(string, subString, allowOverlapping) {
   return n;
 }
 
-function checkBase64(string) { 
-
-var count = occurrences(JSON.stringify(string) , "base64");
-
-  if (count  > 0) {
-    return " (" + count + " Base64 Detected)";
+    
+function checkBase64(str) { 
+    
+  const regex = /data:[a-zA-z0-9\/]*;base64,/g;
+  str = JSON.stringify(str);
+  let count = (String(str).match(regex) || []).length;
+ 
+    if (count  > 0) {
+      return " (" + count + " Base64 Detected)";
+    }
+    return '';
   }
-  return '';
-}
 
 function GenerateReport() { 
     let report = {};
