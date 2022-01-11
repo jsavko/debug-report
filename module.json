@@ -3,7 +3,7 @@
   "title": "Debug Report Generator",
   "description": "Creates a report useful for debugging foundry problems",
   "author": ["jsavko", "Geekswordsman"],
-  "version": "0.0.5",
+  "version": "0.1.1",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "packs": [],
@@ -11,5 +11,5 @@
 		"./debug-report.js"
 	],
   "manifest": "https://raw.githubusercontent.com/jsavko/debug-report/main/module.json",
-  "download": "https://github.com/jsavko/debug-report/archive/refs/tags/0.0.5.zip"
+  "download": "https://github.com/jsavko/debug-report/archive/refs/tags/0.1.1.zip"
 }
