@@ -1,0 +1,52 @@
+<article>
+    <h2>{{ localize 'SUPPORT.Places' }}</h2>
+    <p class="notes">
+        {{ localize 'SUPPORT.Discord' }} <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow" title="FoundryVTT Discord">https://discord.gg/foundryvtt</a>
+    </p>
+    <p class="notes">
+        {{ localize 'SUPPORT.BugReporting' }} <a href="https://foundryvtt.com/contact-us?category=bug" target="_blank" rel="nofollow" title="FoundryVTT Contact Us">https://foundryvtt.com/contact-us/</a>
+    </p>
+
+    <h2>{{ localize 'SUPPORT.Details' }}</h2>
+    <p class="notes">{{ localize 'SUPPORT.ReportPrelude' }}</p>
+
+    <pre tabindex="0" id="support-report">{{ localize 'Foundry Virtual Tabletop' }}: {{ report.coreVersion }}
+{{ localize 'WORLD.GameSystem' }}: {{ report.systemVersion }}
+{{ localize 'MODMANAGE.FilterActive' }}: {{ report.activeModuleCount }}
+{{ localize 'SETTINGS.PerformanceModeN' }}: {{ report.performanceMode }}
+
+{{ localize 'SUPPORT.OS' }}: {{ report.os }}
+{{ localize 'SUPPORT.Client' }}: {{ report.client }}
+{{ localize 'SUPPORT.GPU' }}: {{ report.gpu }}
+{{ localize 'SUPPORT.MaxTextureSize' }}: {{ report.maxTextureSize }}
+
+{{#if report.hasViewedScene }}
+{{ localize 'DOCUMENT.Scene' }}: {{ report.sceneDimensions }} | {{ localize 'SCENES.GridSize' }}: {{ report.grid }} | {{ localize 'SCENES.Padding' }}: {{ report.padding }}
+{{ localize 'DOCUMENT.Walls' }}: {{ report.walls }} | {{ localize 'DOCUMENT.AmbientLights' }}: {{ report.lights }} | {{ localize 'DOCUMENT.AmbientSounds' }}: {{ report.sounds }} | {{ localize 'DOCUMENT.Tiles' }}: {{ report.tiles }} | {{ localize 'DOCUMENT.Tokens' }}: {{ report.tokens }}
+Background File Size : {{debugreport.background.size}} | Dimensions: {{debugreport.background.x_dim}} X {{debugreport.background.y_dim}}
+{{else}}
+{{ localize 'SUPPORT.NoViewedScene' }}
+{{/if }}
+
+{{ localize 'DOCUMENT.Actors' }}: {{ report.actors }} | {{ localize 'DOCUMENT.Items' }}: {{report.items }} | {{ localize 'DOCUMENT.JournalEntries' }}: {{ report.journal }} | {{ localize 'DOCUMENT.RollTables' }}: {{ report.tables }} |
+{{ localize 'PLAYLIST.VolPlaylist' }}: {{ report.playlists }} | {{ localize 'SIDEBAR.TabCompendium' }}: {{ report.packs }} | {{ localize 'DOCUMENT.ChatMessages' }}: {{ report.messages }} 
+{{ localize 'PACKAGE.TagCompendium' }} Documents: {{debugreport.compendiaCount}}
+
+Database Sizes:
+{{ localize 'DOCUMENT.Actors' }}: {{ debugreport.Data_Sizes.Actors }} | {{ localize 'DOCUMENT.Items' }}: {{ debugreport.Data_Sizes.Items }} | {{ localize 'DOCUMENT.JournalEntries' }}: {{ debugreport.Data_Sizes.Journals }} | {{ localize 'DOCUMENT.RollTables' }}: {{ debugreport.Data_Sizes.Tables }}|
+{{ localize 'DOCUMENT.Scenes' }}: {{ debugreport.Data_Sizes.Scenes }} | {{ localize 'DOCUMENT.Macros' }}: {{ debugreport.Data_Sizes.Macros }} | {{ localize 'DOCUMENT.ChatMessages' }}: {{ debugreport.Data_Sizes.Chat }}
+
+Compendium Savings:
+{{ localize 'DOCUMENT.Actors' }}: {{numberFormat debugreport.compressData.actors.packed decimals=2}} kB  {{numberFormat debugreport.compressData.actors.savings decimals=1}}% | {{ localize 'DOCUMENT.Items' }}: {{numberFormat debugreport.compressData.items.packed decimals=2}} kB  {{numberFormat debugreport.compressData.items.savings decimals=1}}%
+{{ localize 'DOCUMENT.Macros' }}: {{numberFormat debugreport.compressData.macros.packed decimals=2}} kB  {{numberFormat debugreport.compressData.macros.savings decimals=1}}% | {{ localize 'DOCUMENT.RollTables' }}: {{numberFormat debugreport.compressData.tables.packed decimals=2}} kB  {{numberFormat debugreport.compressData.tables.savings decimals=1}}%
+
+{{ localize 'MODMANAGE.FilterActive' }}:
+{{#each debugreport.Active_Modules}}
+{{this}}
+{{/each}}
+</pre>
+    <button type="button" name="copy">
+        <i class="fas fa-copy"></i> {{ localize 'SUPPORT.CopyReport' }}
+    </button>
+
+</article>

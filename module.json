@@ -1,11 +1,16 @@
 {
-  "name": "debug-report",
+  "id": "debug-report",
   "title": "Debug Report Generator",
   "description": "Creates a report useful for debugging foundry problems",
-  "author": ["jsavko", "Geekswordsman"],
-  "version": "0.1.3",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "9",
+  "authors": ["jsavko", "Geekswordsman"],
+  "version": "0.10.1",
+  "minimumCoreVersion": "10",
+  "compatibleCoreVersion": "10",
+  "compatibility": {
+    "minimum": 10, 
+    "verified": 10, 
+    "maximum": 10 
+  },
   "packs": [],
 	"esmodules": [
 		"./debug-report.js"
