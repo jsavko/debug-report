@@ -115,11 +115,15 @@ class DebugDetails extends SupportDetails {
     report.background = {};
 
 
-    let imgdata = await DebugDetails.loadImage('/' + game.scenes.active.background.src)
+    const imgSrc = game.scenes.active.background.src;
+    const imgUrl = imgSrc.startsWith('http') ? imgSrc : `/${imgSrc}`;
+    let imgdata = await DebugDetails.loadImage(imgUrl);
 
-    report.background.x_dim = imgdata.width
-    report.background.y_dim  = imgdata.height
-    report.background.size = formatBytes(getImageSizeInBytes('/' + game.scenes.active.background.src))
+    //let imgdata = await DebugDetails.loadImage('/' + game.scenes.active.background.src)
+
+    report.background.x_dim = imgdata.width;
+    report.background.y_dim  = imgdata.height;
+    report.background.size = formatBytes(getImageSizeInBytes(imgUrl));
 
 
     // Compression Data by M.A.  https://gitlab.com/mkahvi/foundry-macros/-/blob/master/Agnostic/info/Compendium%20Savings.js
