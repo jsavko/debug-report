@@ -3,7 +3,7 @@
   "title": "Debug Report Generator",
   "description": "Creates a report useful for debugging foundry problems",
   "authors": ["jsavko", "Geekswordsman"],
-  "version": "0.10.2",
+  "version": "0.10.3",
   "minimumCoreVersion": "10",
   "compatibleCoreVersion": "10",
   "compatibility": {
