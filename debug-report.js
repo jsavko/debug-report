@@ -114,8 +114,10 @@ class DebugDetails extends SupportDetails {
 
     report.background = {};
 
-
-    const imgSrc = game.scenes.active.background.src;
+    let imgSrc;
+    if (game.scenes.active) {
+      imgSrc = game.scenes.active.background.src;
+    }
     report.background.x_dim = 0;
     report.background.y_dim = 0;
     report.background.size = 0
